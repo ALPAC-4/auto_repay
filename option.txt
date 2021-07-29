@@ -1,0 +1,5 @@
+{
+    "target_percent" : "0.1",
+    "trigger_percent" : 0.7,
+    "get_UST_option" : ["aUST", "MIR LP", "ANC LP", "MINE LP", "mAAPL LP", "mCOIN LP"]
+}

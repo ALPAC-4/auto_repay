@@ -1,0 +1,57 @@
+{
+  "name": "auto-repay",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npm test",
+    "dev": "nodemon --signal SIGINT --exec ts-node -e ts,json --files -r tsconfig-paths/register src/index.ts",
+    "start": "NODE_ENV=production node --stack_size=4096 --max-old-space-size=4096 -r ts-node/register/transpile-only -r tsconfig-paths/register src/index.ts",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@terra-money/terra.js": "^1.8.8",
+    "bluebird": "^3.7.2",
+    "graphql": "^15.5.1",
+    "graphql-request": "^3.4.0",
+    "moment": "^2.29.1",
+    "ts-node": "^10.1.0",
+    "tsconfig-paths": "^3.10.1",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.33",
+    "@types/node": "^16.3.2",
+    "@types/node-fetch": "^2.5.11",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "koa": "^2.13.1",
+    "lint-staged": "^11.0.1",
+    "nodemon": "^2.0.12",
+    "prettier": "2.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "parser": "typescript",
+    "printWidth": 100,
+    "singleQuote": true,
+    "semi": false
+  }
+}
