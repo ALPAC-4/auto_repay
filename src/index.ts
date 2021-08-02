@@ -75,8 +75,8 @@ async function main() {
 }
 
 async function updateState(myAddr: string) {
-  const borrowLimit = await getBorrowLimit(myAddr)
-  const loanAmount = await getLoanAmount(myAddr)
+  const borrowLimit = await getBorrowLimit(myAddr).catch()
+  const loanAmount = await getLoanAmount(myAddr).catch()
   if (!borrowLimit || !loanAmount) return
   const percentNow = loanAmount / borrowLimit
 
