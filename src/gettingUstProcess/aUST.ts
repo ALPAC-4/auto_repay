@@ -7,8 +7,8 @@ export async function getUstFromAust(
   insufficientUST: number
 ): Promise<boolean | void> {
   const address = autoRepay.wallet.key.accAddress
-  const aUstBalane = await getTokenBalance(address, Anchor.aUST).catch()
-  const aUstExchangeRate = await getAustExchangeRate().catch()
+  const aUstBalane = await getTokenBalance(address, Anchor.aUST)
+  const aUstExchangeRate = await getAustExchangeRate()
   let isFilled = false
   if (!aUstBalane || !aUstExchangeRate) return
 

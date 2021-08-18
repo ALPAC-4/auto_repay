@@ -48,7 +48,7 @@ export async function getProcess(
       const gettedUstBalance = await getNativeBalance(
         autoRepay.wallet.key.accAddress,
         'uusd'
-      ).catch()
+      )
 
       if (gettedUstBalance) {
         ustBalance = gettedUstBalance

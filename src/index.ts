@@ -14,7 +14,7 @@ import moment from 'moment'
 import { Repay } from 'terra/autoRepay'
 import { getRepayAmount, optionCheck } from 'utils'
 
-async function main() {
+async function run() {
   initMirror('https://graph.mirror.finance/graphql')
   initMantle('https://mantle.terra.dev/')
 
@@ -22,7 +22,7 @@ async function main() {
   let getted = false
   let assetsData
   while (!getted) {
-    assetsData = await getMassetInfo().catch()
+    assetsData = await getMassetInfo()
     if (assetsData != undefined) getted = true
     await delay(1000)
   }
@@ -41,8 +41,8 @@ async function main() {
   }
 
   while (true) {
-    const state = await updateState(myAddr).catch()
-    const mirrorStakingState = await getMirrorStakingState(myAddr).catch()
+    const state = await updateState(myAddr)
+    const mirrorStakingState = await getMirrorStakingState(myAddr)
     const nowPercent = state?.percentNow
     const loanAmount = state?.loanAmount
     if (
@@ -75,8 +75,8 @@ async function main() {
 }
 
 async function updateState(myAddr: string) {
-  const borrowLimit = await getBorrowLimit(myAddr).catch()
-  const loanAmount = await getLoanAmount(myAddr).catch()
+  const borrowLimit = await getBorrowLimit(myAddr)
+  const loanAmount = await getLoanAmount(myAddr)
   if (!borrowLimit || !loanAmount) return
   const percentNow = loanAmount / borrowLimit
 
@@ -94,4 +94,10 @@ async function getUstBalance(addr: string) {
   }
 }
 
-main().catch()
+async function main() {
+  for(;;){
+    await run().catch(err => console.log(err))
+  }
+}
+
+main()

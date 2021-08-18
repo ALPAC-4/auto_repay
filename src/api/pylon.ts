@@ -9,7 +9,7 @@ export async function getMineLpStakingAmount(address: string): Promise<number | 
       }
     }
   `
-  const staking = await getContractStore(Pylon.MINE_LP_staking, query).catch()
+  const staking = await getContractStore(Pylon.MINE_LP_staking, query)
   if (!staking) return undefined
   return Number(staking.bond_amount)
 }

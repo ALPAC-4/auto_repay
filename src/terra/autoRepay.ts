@@ -77,7 +77,7 @@ export class Repay {
     let tax
     let getted = false
     while (!getted) {
-      tax = await taxCap().catch()
+      tax = await taxCap()
       if (tax) getted = true
       await delay(1000)
     }
