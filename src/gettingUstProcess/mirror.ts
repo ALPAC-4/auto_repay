@@ -19,7 +19,7 @@ export async function getUstFromMirrorRelativeLp(
     address,
     getAssetInfoFromSymbol(assetsData, symbol).lpToken
   ).catch()
-  const ustPerLpToken = await ustPerLP(getAssetInfoFromSymbol(assetsData, symbol).pair).catch()
+  const ustPerLpToken = await ustPerLP(getAssetInfoFromSymbol(assetsData, symbol).pair)
   console.log(stakedAmount, lpTokenBalance, ustPerLpToken)
   if (stakedAmount == undefined || lpTokenBalance == undefined || ustPerLpToken == undefined) return
 

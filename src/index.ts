@@ -41,8 +41,8 @@ async function run() {
   }
 
   while (true) {
-    const state = await updateState(myAddr).catch()
-    const mirrorStakingState = await getMirrorStakingState(myAddr).catch()
+    const state = await updateState(myAddr)
+    const mirrorStakingState = await getMirrorStakingState(myAddr)
     const nowPercent = state?.percentNow
     const loanAmount = state?.loanAmount
     if (
@@ -75,8 +75,8 @@ async function run() {
 }
 
 async function updateState(myAddr: string) {
-  const borrowLimit = await getBorrowLimit(myAddr).catch()
-  const loanAmount = await getLoanAmount(myAddr).catch()
+  const borrowLimit = await getBorrowLimit(myAddr)
+  const loanAmount = await getLoanAmount(myAddr)
   if (!borrowLimit || !loanAmount) return
   const percentNow = loanAmount / borrowLimit
 
@@ -88,7 +88,7 @@ async function updateState(myAddr: string) {
 
 async function getUstBalance(addr: string) {
   while (true) {
-    const ustBalance = await getNativeBalance(addr, 'uusd').catch()
+    const ustBalance = await getNativeBalance(addr, 'uusd')
     if (ustBalance) return ustBalance
     await delay(1000)
   }
