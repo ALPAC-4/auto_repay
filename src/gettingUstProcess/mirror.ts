@@ -10,12 +10,16 @@ export async function getUstFromMirrorRelativeLp(
   mirrorStakingState: RewardInfo[]
 ): Promise<boolean | void> {
   const address = autoReapy.wallet.key.accAddress
-  const stakedAmount = await getMassetLpStakingAmount(symbol, assetsData, mirrorStakingState)
+  const stakedAmount = await getMassetLpStakingAmount(
+    symbol,
+    assetsData,
+    mirrorStakingState
+  ).catch()
   const lpTokenBalance = await getTokenBalance(
     address,
     getAssetInfoFromSymbol(assetsData, symbol).lpToken
-  )
-  const ustPerLpToken = await ustPerLP(getAssetInfoFromSymbol(assetsData, symbol).pair)
+  ).catch()
+  const ustPerLpToken = await ustPerLP(getAssetInfoFromSymbol(assetsData, symbol).pair).catch()
   console.log(stakedAmount, lpTokenBalance, ustPerLpToken)
   if (stakedAmount == undefined || lpTokenBalance == undefined || ustPerLpToken == undefined) return
 

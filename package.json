@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm test",
     "dev": "nodemon --signal SIGINT --exec ts-node -e ts,json --files -r tsconfig-paths/register src/index.ts",
-    "start": "NODE_ENV=production node --stack_size=4096 --max-old-space-size=4096 -r ts-node/register/transpile-only -r tsconfig-paths/register src/index.ts",
+    "start": "node --stack_size=4096 --max-old-space-size=4096 -r ts-node/register/transpile-only -r tsconfig-paths/register src/index.ts",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
   },
   "author": "",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@terra-money/terra.js": "^1.8.8",
     "bluebird": "^3.7.2",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
     "moment": "^2.29.1",
