@@ -41,7 +41,7 @@ async function main() {
   }
 
   while (true) {
-    const state = await updateState(myAddr)
+    const state = await updateState(myAddr).catch()
     const mirrorStakingState = await getMirrorStakingState(myAddr).catch()
     const nowPercent = state?.percentNow
     const loanAmount = state?.loanAmount
@@ -94,4 +94,4 @@ async function getUstBalance(addr: string) {
   }
 }
 
-main().catch()
+main()

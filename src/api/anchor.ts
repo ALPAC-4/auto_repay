@@ -19,7 +19,7 @@ export async function getAncLpStakingAmount(address: string): Promise<number | v
   `
   const staking = await getContractStore(Anchor.ANC_LP_staking, query).catch()
   if (!staking) return undefined
-  return Number(staking.bond_amount)
+  return Number(staking?.bond_amount)
 }
 
 export async function getBorrowLimit(address: string): Promise<number | void> {
