@@ -31,7 +31,7 @@ export async function getContractStore(contractAddr: string, query: string): Pro
         query,
       }
     )
-    .catch()
+ 
 
   if (!res?.WasmContractsContractAddressStore?.Result) return undefined
   return JSON.parse(res.WasmContractsContractAddressStore.Result)
@@ -55,7 +55,7 @@ export async function getNativeBalance(address: string, token: string): Promise<
         address,
       }
     )
-    .catch()
+
 
   if (!res?.BankBalancesAddress?.Result) return
   const tokenBalance = res.BankBalancesAddress.Result.filter((e: Balance) => e.Denom == token)
@@ -71,7 +71,7 @@ export async function getLatestBlock(): Promise<number | void> {
         }
       `
     )
-    .catch()
+
   return response?.LastSyncedHeight
 }
 
@@ -83,7 +83,7 @@ export async function getTokenBalance(address: string, token: string): Promise<n
       }
     }
   `
-  const balance = await getContractStore(token, query).catch()
+  const balance = await getContractStore(token, query)
   if (!balance) return
 
   return Number(balance?.balance)
@@ -91,7 +91,7 @@ export async function getTokenBalance(address: string, token: string): Promise<n
 
 export async function ustPerLP(pairAddress: string): Promise<number | void> {
   const query = '{"pool":{}}'
-  const pool = await getContractStore(pairAddress, query).catch()
+  const pool = await getContractStore(pairAddress, query)
   if (!pool) return
 
   let ustAmount
@@ -116,6 +116,6 @@ export async function taxCap(): Promise<number | void> {
         }
       `
     )
-    .catch()
+
   return Number(res?.TreasuryTaxCapDenom?.Result)
 }

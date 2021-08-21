@@ -7,9 +7,9 @@ export async function getUstFromAnchorLp(
   insufficientUST: number
 ): Promise<boolean | void> {
   const address = autoReapy.wallet.key.accAddress
-  const stakedAmount = await getAncLpStakingAmount(address).catch()
-  const lpTokenBalance = await getTokenBalance(address, Anchor.ANC_UST_LP).catch()
-  const ustPerLpToken = await ustPerLP(Anchor.ANC_UST_pair).catch()
+  const stakedAmount = await getAncLpStakingAmount(address)
+  const lpTokenBalance = await getTokenBalance(address, Anchor.ANC_UST_LP)
+  const ustPerLpToken = await ustPerLP(Anchor.ANC_UST_pair)
   console.log(stakedAmount, lpTokenBalance, ustPerLpToken)
   if (stakedAmount == undefined || lpTokenBalance == undefined || ustPerLpToken == undefined) return
 

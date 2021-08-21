@@ -10,7 +10,7 @@ export async function getMirrorStakingState(address: string): Promise<RewardInfo
       }
     }
   `
-  const MirrorSatkingState = await getContractStore(Mirror.MIR_LP_staking, query).catch()
+  const MirrorSatkingState = await getContractStore(Mirror.MIR_LP_staking, query)
   if (!MirrorSatkingState?.reward_infos) return
   return MirrorSatkingState.reward_infos
 }

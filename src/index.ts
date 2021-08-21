@@ -22,7 +22,7 @@ async function main() {
   let getted = false
   let assetsData
   while (!getted) {
-    assetsData = await getMassetInfo().catch()
+    assetsData = await getMassetInfo()
     if (assetsData != undefined) getted = true
     await delay(1000)
   }
@@ -75,8 +75,8 @@ async function main() {
 }
 
 async function updateState(myAddr: string) {
-  const borrowLimit = await getBorrowLimit(myAddr).catch()
-  const loanAmount = await getLoanAmount(myAddr).catch()
+  const borrowLimit = await getBorrowLimit(myAddr)
+  const loanAmount = await getLoanAmount(myAddr)
   if (!borrowLimit || !loanAmount) return
   const percentNow = loanAmount / borrowLimit
 
@@ -88,7 +88,7 @@ async function updateState(myAddr: string) {
 
 async function getUstBalance(addr: string) {
   while (true) {
-    const ustBalance = await getNativeBalance(addr, 'uusd').catch()
+    const ustBalance = await getNativeBalance(addr, 'uusd')
     if (ustBalance) return ustBalance
     await delay(1000)
   }

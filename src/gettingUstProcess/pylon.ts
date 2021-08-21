@@ -7,9 +7,9 @@ export async function getUstFromMineLp(
   insufficientUST: number
 ): Promise<boolean | void> {
   const address = autoReapy.wallet.key.accAddress
-  const stakedAmount = await getMineLpStakingAmount(address).catch()
-  const lpTokenBalance = await getTokenBalance(address, Pylon.MINE_UST_LP).catch()
-  const ustPerLpToken = await ustPerLP(Pylon.MINE_UST_pair).catch()
+  const stakedAmount = await getMineLpStakingAmount(address)
+  const lpTokenBalance = await getTokenBalance(address, Pylon.MINE_UST_LP)
+  const ustPerLpToken = await ustPerLP(Pylon.MINE_UST_pair)
   if (stakedAmount == undefined || lpTokenBalance == undefined || ustPerLpToken == undefined) return
 
   const lpNeeded = Math.floor(insufficientUST / ustPerLpToken)
