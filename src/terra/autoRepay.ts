@@ -84,7 +84,7 @@ export class Repay {
 
     if (!tax) return
 
-    const fee = feeGenerator(1000000, tax + 250000)
+    const fee = feeGenerator(1000000, tax + 762000)
 
     const repay = new MsgExecuteContract(
       this.wallet.key.accAddress,
@@ -101,7 +101,7 @@ export class Repay {
   async withdrawAust(amount: number): Promise<void> {
     console.log('Withdrawing ' + decimalFormating(amount) + 'aUST ...')
 
-    const fee = feeGenerator(1000000, 250000)
+    const fee = feeGenerator(1000000, 762000)
     const withdraw = new MsgExecuteContract(
       this.wallet.key.accAddress,
       Anchor.aUST,
@@ -120,7 +120,7 @@ export class Repay {
 
   async withdrawAncLp(unstakeAmount: number, withdrawAmount: number): Promise<void> {
     console.log('Withdrawing ANC-UST LP Tokens ...')
-    const fee = feeGenerator(1000000, 250000)
+    const fee = feeGenerator(1000000, 762000)
 
     const unstake = new MsgExecuteContract(
       this.wallet.key.accAddress,
@@ -155,7 +155,7 @@ export class Repay {
     tokenInfo: AssetData
   ): Promise<void> {
     console.log('Withdrawing ' + tokenInfo.symbol + '-UST LP ...')
-    const fee = feeGenerator(1000000, 250000)
+    const fee = feeGenerator(1000000, 762000)
 
     const unstake = new MsgExecuteContract(
       this.wallet.key.accAddress,
@@ -187,7 +187,7 @@ export class Repay {
 
   async withdrawMineLp(unstakeAmount: number, withdrawAmount: number): Promise<void> {
     console.log('Withdrawing MINE-UST LP Tokens ...')
-    const fee = feeGenerator(1000000, 250000)
+    const fee = feeGenerator(1000000, 762000)
 
     const unstake = new MsgExecuteContract(
       this.wallet.key.accAddress,
