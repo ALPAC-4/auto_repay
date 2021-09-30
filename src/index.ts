@@ -16,7 +16,7 @@ import { getRepayAmount, optionCheck } from 'utils'
 
 async function main() {
   initMirror('https://graph.mirror.finance/graphql')
-  initMantle('https://mantle.terra.dev/')
+  initMantle('https://hive.terra.dev/graphql')
 
   const option = JSON.parse(fs.readFileSync('option.txt').toString())
   let getted = false

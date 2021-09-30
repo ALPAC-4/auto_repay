@@ -1,8 +1,8 @@
 import { GraphQLClient, gql } from 'graphql-request'
 
 interface Balance {
-  Amount: string
-  Denom: string
+  amount: string
+  denom: string
 }
 
 export let mantle: GraphQLClient
@@ -16,13 +16,13 @@ export function initMantle(URL: string): GraphQLClient {
 }
 
 export async function getContractStore(contractAddr: string, query: string): Promise<any | void> {
+  query = JSON.parse(query)
   const res = await mantle
     .request(
       gql`
-        query ($contractAddr: String!, $query: String!) {
-          WasmContractsContractAddressStore(ContractAddress: $contractAddr, QueryMsg: $query) {
-            Height
-            Result
+        query ($contractAddr: String!, $query: JSON!) {
+          wasm{
+            contractQuery(contractAddress: $address, query: $query) 
           }
         }
       `,
@@ -33,8 +33,8 @@ export async function getContractStore(contractAddr: string, query: string): Pro
     )
  
 
-  if (!res?.WasmContractsContractAddressStore?.Result) return undefined
-  return JSON.parse(res.WasmContractsContractAddressStore.Result)
+  if (!res?.wasm?.contractQuery) return undefined
+  return JSON.parse(res.wasm.contractQuery)
 }
 
 export async function getNativeBalance(address: string, token: string): Promise<number | void> {
@@ -42,11 +42,10 @@ export async function getNativeBalance(address: string, token: string): Promise<
     .request(
       gql`
         query ($address: String!) {
-          BankBalancesAddress(Address: $address) {
-            Height
-            Result {
-              Amount
-              Denom
+          bank{
+            balance(address: $address"){
+              denom
+              amount
             }
           }
         }
@@ -57,23 +56,30 @@ export async function getNativeBalance(address: string, token: string): Promise<
     )
 
 
-  if (!res?.BankBalancesAddress?.Result) return
-  const tokenBalance = res.BankBalancesAddress.Result.filter((e: Balance) => e.Denom == token)
+  if (!res?.bank?.balance) return
+  const tokenBalance = res.bank.balance.filter((e: Balance) => e.denom == token)
   return tokenBalance[0] ? Number(tokenBalance[0].Amount) : 0
 }
 
-export async function getLatestBlock(): Promise<number | void> {
-  const response = await mantle
-    .request(
-      gql`
-        {
-          LastSyncedHeight
+export async function getLatestBlock(): Promise<number> {
+  const response = await mantle.request(
+    gql`
+      {
+        tendermint {
+          blockInfo {
+            block {
+              header {
+                height
+              }
+            }
+          }
         }
-      `
-    )
-
-  return response?.LastSyncedHeight
+      }
+    `
+  )
+  return Number(response?.tendermint?.blockInfo?.block?.header?.height)
 }
+
 
 export async function getTokenBalance(address: string, token: string): Promise<number | void> {
   const query = `
@@ -110,12 +116,14 @@ export async function taxCap(): Promise<number | void> {
     .request(
       gql`
         {
-          TreasuryTaxCapDenom(Denom: "uusd") {
-            Result
+          treasury{
+            taxCap(denom: uusd) {
+              Result
+            }
           }
         }
       `
     )
 
-  return Number(res?.TreasuryTaxCapDenom?.Result)
+  return Number(res?.treasury?.taxCap?.amount)
 }
